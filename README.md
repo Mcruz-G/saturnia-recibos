@@ -19,9 +19,12 @@ This project requires Python and the following Python libraries installed:
 - pandas
 - SQLAlchemy
 
-You also need to have software installed to run and execute a [Python](https://www.python.org/downloads/release/python-380/) script.
+However, there are other dependencies required for this project. Ideally, you will create a virtualenv and when it's activated go to this repo's 
+directory and run the command:
 
-If you do not have Python installed yet, it is highly recommended that you install the [Anaconda](https://www.anaconda.com/distribution/) distribution of Python, which already has the above packages and more included.
+`pip install -r requirements.txt`
+
+this will install all the required dependencies from the requirements.txt file.
 
 ### Steps
 
