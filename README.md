@@ -26,13 +26,13 @@ If you do not have Python installed yet, it is highly recommended that you insta
 ### Steps
 
 1. Clone the repo:
-    git clone https://github.com/your-username/saturnia.git
+    `git clone https://github.com/your-username/saturnia.git`
 
 2. Navigate to the directory:
-    cd saturnia
+    `cd saturnia`
 
 3. Run the Streamlit app:
-    streamlit run saturnia_app.py
+    `streamlit run saturnia_app.py`
 
 You will see the Streamlit app appear in your web browser.
 
