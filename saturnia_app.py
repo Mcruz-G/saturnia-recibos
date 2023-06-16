@@ -48,7 +48,6 @@ if uploaded_file is not None:
 
     fields = {}
     files = os.listdir('recibos')
-    print(files)
     with st.spinner('Processing...'):
         for i, filename in enumerate(files):
             if filename.endswith('.pdf'):
