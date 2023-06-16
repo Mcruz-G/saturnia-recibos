@@ -10,7 +10,7 @@ from sqlalchemy import create_engine, inspect, text
 # Create a SQLAlchemy engine connected to a SQLite database
 engine = create_engine('sqlite:///databases/CFE_Recibos_DB.sqlite')
 
-st.markdown("# Saturnia", unsafe_allow_html=True)
+st.markdown("# Saturnia Receipts App", unsafe_allow_html=True)
 st.markdown(
     """
     <style>
