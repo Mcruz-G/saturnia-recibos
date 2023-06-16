@@ -16,7 +16,7 @@ st.markdown(
     <style>
     h1{
     font-size:60px !important;
-    color:#6495ED;
+    color:#DFFF00;
     }
     </style>
     """, 
