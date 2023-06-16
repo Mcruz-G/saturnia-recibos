@@ -36,8 +36,8 @@ To introduce a .zip file:
 
 uploaded_file = st.file_uploader("Upload file", type=['zip'])
 
-if os.path.exists('recibos') and os.path.isdir('recibos'):
-    shutil.rmtree('recibos')  # Deletes the directory
+# if os.path.exists('recibos') and os.path.isdir('recibos'):
+#     shutil.rmtree('recibos')  # Deletes the directory
 
 if uploaded_file is not None:
     with zipfile.ZipFile(uploaded_file, 'r') as zip_ref:
