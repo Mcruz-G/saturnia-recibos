@@ -44,6 +44,7 @@ def process_document(file_path: str):
 
     return predicted_fields
 
+
 def get_text(anchor, document):
     """
     Function to locate a layout token given its layout anchor.
@@ -54,6 +55,7 @@ def get_text(anchor, document):
         end_index = segment.end_index
         response += document.text[start_index:end_index]
     return response.strip()
+
 
 def get_keys():
     # Read json file:
