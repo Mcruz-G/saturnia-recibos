@@ -40,8 +40,11 @@ this will install all the required dependencies from the requirements.txt file.
 You will see the Streamlit app appear in your web browser.
 
 **Note:** This project contains a `process_document()` function that is a placeholder for the actual PDF processing function. You need to replace this function with your own function to process PDF files. 
-**Note 2:** This project requires a keys file that the Mike should provide to you. Please ask him about this if you want to start working on this repo. 
+
+**Note 2:** This project requires a keys file that the Mike should provide to you. Please ask him about this if you want to start working on this repo.
+
 **Note 3:** Please create a `databases` dir right on the repo's directory.  Use the `mkdir databases` command to do this. Also, please avoid uploading data to the repo.
+
 **Note 4:** Avoid pushing data to the repo, only code should be submitted. 
 
 ## Usage
