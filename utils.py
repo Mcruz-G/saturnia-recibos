@@ -36,7 +36,7 @@ def process_and_send_files():
     fields = {}
     files = os.listdir('recibos')
     with st.spinner('Processing...'):
-        for i, filename in enumerate(files):
+        for _, filename in enumerate(files):
             if filename.endswith('.pdf'):
                 name = filename.split(".")[0]
                 file_path = os.path.join('recibos', filename)
@@ -57,7 +57,7 @@ def save_data_to_db(engine, df):
         df.to_sql('recibos', connection, index=True, index_label='recibo', if_exists='append')
         result = connection.execute(text("SELECT DISTINCT * FROM recibos LIMIT 10"))
         df = pd.DataFrame(result.fetchall(), columns=result.keys())
-        
+
         # Query the database to get the first 10 rows from 'recibos' table
         st.markdown('Collect your clients data into your database. Until now, these are the first 10 rows that you have collected so far:')
         st.dataframe(df)
