@@ -19,11 +19,31 @@ uploaded_file = st.file_uploader("Upload file", type=['zip'])
 
 if uploaded_file is not None:
     with zipfile.ZipFile(uploaded_file, 'r') as zip_ref:
+        counter = 0
         for member in zip_ref.namelist():
-            # This will exclude any directories
-                if not member.endswith('/'):
-                    zip_ref.extract(member, 'recibos')
+            
+            file_basename = os.path.basename(member)
+            destination_path = 'recibos'
+            # Check if the directory exists
+            if os.path.exists(destination_path) and counter == 0:
+                # If it does exist, delete it
+                shutil.rmtree(destination_path)
+                counter += 1
 
+                # In either case, create the destination_path
+                os.makedirs(destination_path)
+            else:
+                if counter == 0:
+                    os.makedirs(destination_path)
+
+
+            source = zip_ref.open(member)
+            target = open(os.path.join(destination_path, file_basename), "wb")
+            # zip_ref.extract(member, destination_path)
+            with source, target:
+                shutil.copyfileobj(source, target)
+
+            
     output_data = process_and_send_files()
 
     save_data_to_db(engine, output_data)

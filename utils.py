@@ -37,6 +37,7 @@ def process_and_send_files():
     files = os.listdir('recibos')
     with st.spinner('Processing...'):
         for _, filename in enumerate(files):
+            
             if filename.endswith('.pdf'):
                 name = filename.split(".")[0]
                 file_path = os.path.join('recibos', filename)
