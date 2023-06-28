@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Saturnia Receipts App</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #ADD8E6; /* Cold Blue */
+        }
+        .container {
+            background-color: #F0F8FF; /* Alice Blue */
+            border-radius: 25px;
+            padding: 20px;
+            margin-top: 50px;
+            text-align: center;
+        }
+        .title {
+            color: #2F4F4F; /* Dark Slate Gray */
+            margin-bottom: 30px;
+        }
+        .description {
+            margin-bottom: 20px;
+        }
+        .upload-btn {
+            background-color: #20B2AA; /* Light Sea Green */
+            border-radius: 25px;
+            color: white;
+            font-family: 'Roboto', sans-serif;
+            font-weight: bold;
+            padding: 10px 20px;
+            border: none;
+            margin-top: 20px;
+        }
+        .upload-btn:hover {
+            background-color: #3CB371; /* Medium Sea Green */
+        }
+        .progress-container {
+            margin-top: 30px;
+            text-align: left;
+        }
+        .progress-bar {
+            background-color: #20B2AA; /* Light Sea Green */
+            height: 20px;
+        }
+        .loading-text {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .result-container {
+            margin-top: 30px;
+            text-align: left;
+        }
+        .table {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Saturnia Receipts App</h1>
+        <h2 class="description">Put your client's receipts here and summarize them into an excel!</h2>
+        <form id="upload-form" action="/saturnia/upload" method="post" enctype="multipart/form-data">
+            <input id="file-input" type="file" name="file" style="display: none;">
+            <button id="upload-btn" type="button" class="upload-btn">Upload .zip</button>
+        </form>
+        <div id="progress-container" class="progress-container" style="display: none;"></div>
+        <div id="result-container" class="result-container" style="display: none;">
+            <h3>Results:</h3>
+            <div id="result-table"></div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#upload-btn').click(function() {
+                $('#file-input').trigger('click');
+            });
+
+            $('#file-input').change(function() {
+                if ($(this).val() != '') {
+                    var formData = new FormData();
+                    formData.append('file', $(this)[0].files[0]);
+
+                    $('#progress-container').empty().show();
+                    $('#result-container').hide();
+
+                    $.ajax({
+                        url: '/saturnia/upload',
+                        type: 'POST',
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        xhr: function() {
+                            var xhr = new window.XMLHttpRequest();
+                            xhr.upload.addEventListener('progress', function(e) {
+                                if (e.lengthComputable) {
+                                    var progress = Math.round((e.loaded / e.total) * 100);
+                                    $('#progress-container').html('<p class="loading-text">Processing files...</p><div class="progress-bar" role="progressbar" style="width: ' + progress + '%;" aria-valuenow="' + progress + '" aria-valuemin="0" aria-valuemax="100"></div>');
+                                }
+                            }, false);
+                            return xhr;
+                        },
+                        success: function(data) {
+                            $('#progress-container').html('<p class="loading-text">Processing complete!</p><div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>');
+                            $('#result-container').show();
+                            var table = $('<table>', { class: 'table' });
+                            var thead = $('<thead>');
+                            var tbody = $('<tbody>');
+                            var trHead = $('<tr>');
+                            trHead.append($('<th>').text('Recibo'));
+                            trHead.append($('<th>').text('Field 1'));
+                            trHead.append($('<th>').text('Field 2'));
+                            // ... Add more columns if necessary
+                            thead.append(trHead);
+                            table.append(thead);
+                            $.each(data, function(index, item) {
+                                var trBody = $('<tr>');
+                                trBody.append($('<td>').text(item['recibo']));
+                                trBody.append($('<td>').text(item['field1']));
+                                trBody.append($('<td>').text(item['field2']));
+                                // ... Add more columns if necessary
+                                tbody.append(trBody);
+                            });
+                            table.append(tbody);
+                            $('#result-table').empty().append(table);
+                        },
+                        error: function(xhr, status, error) {
+                            $('#progress-container').hide();
+                            $('#result-container').show();
+                            $('#result-container').html('<p>Error: ' + xhr.responseText + '</p>');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
