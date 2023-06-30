@@ -63,9 +63,11 @@ def upload():
 
 @bp.route('/download', methods=['GET', 'POST'])
 def download():
+    # print(session)
     csv_data = session.pop('csv_data', None)  # Retrieve the CSV data from the session
     if csv_data:
         response = make_response(csv_data)
+        print(response)
         response.headers['Content-Type'] = 'text/csv'
         response.headers['Content-Disposition'] = 'attachment; filename=recibos_data.csv'
         return response
