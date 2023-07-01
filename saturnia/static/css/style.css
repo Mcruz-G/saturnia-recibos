@@ -1,0 +1,121 @@
+/* body {
+    background-color: #282C34;
+    color: white;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+} */
+body {
+    background-image: url("../images/background.png");
+    background-size: cover;
+    display: flex;
+    font-family: 'Arial', sans-serif;
+
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+.container {
+    text-align: center;
+}
+
+.logo {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 100px;
+    height: 100px;
+}
+
+.fade-in-text {
+    animation: fadeInOpacity 2s ease-in forwards;
+    color : white;
+
+    opacity: 0;
+}
+
+.instructions {
+    margin-top: 30px;
+    font-size: 24px;
+
+    margin-bottom: 15px;
+    color: white;
+    animation: fadeInOpacity 2s ease-in forwards;
+    opacity: 0;
+}
+
+.centered-button {
+    margin-top: 20px;
+    padding: 10px 10px;
+    font-size: 20px;
+    color: white;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    
+}
+
+.centered-button:active {
+    background-color: #45a049;
+}
+
+.processing-message {
+    display: none;
+    color:rgb(239, 205, 205);
+    font-size: 24px;
+    margin-top: 20px;
+    position: relative;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    animation-name: fadeinout;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+.download-message {
+    color: rgb(239, 205, 205);
+    display: none;
+    margin-top: 30px;
+    font-size: 18px;
+}
+
+.download-message:hover {
+    color: #4CAF50;
+}
+
+.downloadLink {
+    color: #4CAF50;
+}
+
+.downloadLink:hover {
+    color: #e9c0e9;
+}
+
+@keyframes fadeinout {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes fadeInOpacity {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+

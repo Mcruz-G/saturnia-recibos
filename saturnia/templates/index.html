@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+        <title>Saturnia</title>
+    </head>
+    <body>
+        <div class="container">
+            <img class="logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="Saturnia Logo">
+            <h1 id="fade-in-text" class="fade-in-text">Saturnia</h1>
+            <p class="instructions">Please click the button below to upload and process your PDF directory:</p>
+            <input type="file" id="pdfInput" webkitdirectory directory multiple style="display: none;">
+            <button id="myButton" class="centered-button">Upload PDFs</button>
+            <p id="processingMessage" class="processing-message">Processing your files...</p>
+            <p id="downloadMessage" class="download-message">Your data is available <a id="downloadLink" href="#">here</a>.</p>
+        </div>
+        <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    </body>
+</html>
