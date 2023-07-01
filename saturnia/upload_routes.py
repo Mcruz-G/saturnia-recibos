@@ -8,7 +8,7 @@ import time
 from werkzeug.utils import secure_filename
 import shutil
 
-engine = create_engine('sqlite:///databases/CFE_Recibos_DB.sqlite')
+# engine = create_engine('sqlite:///databases/CFE_Recibos_DB.sqlite')
 
 bp = Blueprint('saturnia', __name__, url_prefix='/saturnia')
 
@@ -36,7 +36,7 @@ def upload():
 
         df = process_and_send_files([file_path])
 
-        save_data_to_db(engine, df)
+        save_data_to_db(df)
 
         csv_data = df.to_csv(index=True, index_label='recibo').encode()
         

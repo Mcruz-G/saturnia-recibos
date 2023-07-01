@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "saturnia-recibos",
+  "private_key_id": "5b13146e30780147c8531ad0ef4002d755f5bfaa",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC1LaK6FMjHkQ/o\nlq0kmGMCE1IGxFsARFUpj0xyqFtI/HMW1b3/LH4LeMLahLsW3wtf4tNm+7ANPRL+\nApvh+LfoFbFO9afkYhQxaMYzsiZuT2iI/x6TsHp0HDPmAWOhL9/QCMmdvVnyDKo1\nCvoTIyzg+OYhGcv+MFtuC5m8i/BQ/GsnNnVLQ5XNT4u91NsJp8J6f4DDWyxxOFgc\npJGAcINbKZbOuyZkUd4oHUnZyrJdOf+vpz+LDUBiG7GwOYvKx/qr7tz4oWZ8crLH\nvU7B4CLz236MGpgrVbNe7KtFvYqodp54xip7S0+CDgtJOXRhO/FKCYjB3XFJoRZU\nH0cCO8vzAgMBAAECggEAUsx4zh6ahW2bfhmCJjPIJ5YpyfLpfa082EHnV4zuLuRE\nOn7TFi9AqUB2mEPJdpHXUmpIX4uNcPdk2xXZJIO0lEl5nxKwODTEcrIlxlFXs9jx\ndo5U7Hzd8XtEEoy2+d51o86oSUDUPsSf8p7CG4XbSDMnhKAT9GYoGpoNl7fCS1fS\nz6/lCzXcnvkIcMxfk7J8n3nkpIj7n1BIiNZedPukZi+/EC1Cj4uA84CPOJQxqYJ8\niE8e9K2qwfxzwQBruQol+8ioyPntslBY0qkzqM5UCgthnOgTgSn5c8OTbo0wZUnM\neQj9oS/dmNtacdh0WEymXalhCFOyg8fVY5xED/zeoQKBgQDnJpL8baWrAlJwxZ4M\nBBcs/+6htLkoySJvGalPRFecQzu3kGX284HNV2OFpPmGWgRPxlGnbusZffpy8xia\n89W/i2blyWhVoTe0u/6IrCtfr6RF8eEYM1SuhTFvpm7VvUZqU9MHcLyKX28jKYMP\n8xR7BrrViD0lYQJSb/7L6E0zkwKBgQDIp8lEVQ4mlWqTz3c9hbupBdZzYaYV9nDU\noRaox5UBAsGFg14dh/v7gauZ9rU2ER14ztGi94PgFB4ecmwuk/7IXZEwCnVkZZ4J\n9Of/5TMS5lXq+feUGr7Ge2sxamKMz1+O+8+uQqeRaa0N76Adtf26Sg/kUd+OtQMV\nw2J1ATsCIQKBgBPoEoiCuN29WXQ00KOgRo6ti9OJSNjmWXzP7PDSpejjMWVhniZi\nWi9g80UzK/oSDoUAQ0/0EXMkkkkL/nZ5wVK5oqbvbXjSZYW/GvCSQzn+WltbtVLs\nOMK+3b8LykfGASZvCaF+Z/5SsbOJg6v/9yeRMM3q6bkqXZTT6FGPM/bZAoGATW8K\nqbcVJeilX3NBtdlFCT46ev5lBLa85iFgSDP1GZXBrs96Y3UV1gI9gcYGOl4yfGt7\n1SMlnjTFRsSrYPI18YbCP8LZeKwKaBc97K+7nQCMiYh7dYk4tAnu3PwMGgDxBJHC\nnKIWXnRklysxJCYWS2zHYzoBRuYt0Zk8BqE572ECgYAi2PFVojRxybXweilhFcFF\ntaXMvA2UP0kMelawml9E4bN6Qf+ypYeVChLDVRAnBW1w5VJmHCnXgy4DQXm6PWrI\n85JsXb/yRu25bwVj3DYhBWwOsvjj49TFGcF0FTB23EUM/XBRn8PIBOGcphEe0gjk\n4Jp1g1nrFIIdGD3Ya6KcNw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "saturnia-app@saturnia-recibos.iam.gserviceaccount.com",
+  "client_id": "110124284297405106524",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/saturnia-app%40saturnia-recibos.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
