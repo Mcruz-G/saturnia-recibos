@@ -1,0 +1,15 @@
+{
+    "builds":[
+        {
+            "src":"saturnia/static/js/script.js",
+            "use":"@vercel/python"
+            
+        }
+    ],
+    "routes":[
+        {
+            "src":"/static/(.*)",
+            "dest":"saturnia/app.py"
+        }
+    ]
+}

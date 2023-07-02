@@ -2,3 +2,4 @@ keys/*
 # databases/*
 # recibos/*
 # saturniaApp/backend/keys/*
+.vercel

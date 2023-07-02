@@ -5,6 +5,7 @@ protobuf==4.23.3
 SQLAlchemy==2.0.16
 Werkzeug==2.3.6
 google==3.0.0
+gunicorn==19.6
 # google-api-core==2.11.0
 google-auth==2.20.0
 # google-auth-oauthlib==1.0.0
