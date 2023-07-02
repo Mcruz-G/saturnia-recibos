@@ -51,7 +51,7 @@ def get_text(anchor, document):
 
 
 def get_keys():
-    file_path = 'keys/saturnia-recibos-42d2ad3e0669.json'
+    file_path = 'keys/key_docai.json'
     with open(file_path, 'r') as file:
         data = json.load(file)
     return data
