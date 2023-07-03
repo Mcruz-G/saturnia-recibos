@@ -15,9 +15,16 @@ from google.cloud import bigquery
 
 bp = Blueprint('saturnia', __name__, url_prefix='/saturnia')
 
-# @bp.route('/', methods=['GET'])
-# def home():
-#     return render_template('index.html')
+@bp.route('/', methods=['GET'])
+def home():
+    #Get absolute path to pdfs
+    pdfs_path = os.path.join(os.getcwd(), 'pdfs')
+    if os.path.exists(pdfs_path):
+        shutil.rmtree(pdfs_path)
+        os.mkdir(pdfs_path)
+
+    return render_template('index.html')
+
 
 @bp.route('/upload', methods=['POST'])
 def upload():
