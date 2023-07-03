@@ -30,6 +30,7 @@ def upload():
     if file:
         filename = secure_filename(file.filename)
         file_path = os.path.join('pdfs', filename)
+        print(file_path)
         file.save(file_path)
 
 
