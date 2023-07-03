@@ -44,6 +44,8 @@ def upload():
 
         save_data_to_db(df)
 
+        return 'Upload complete', 200
+
     return 'Upload failed', 400
 
 @bp.route('/download', methods=['GET'])
@@ -53,7 +55,6 @@ def download():
     credentials = google.oauth2.service_account.Credentials.from_service_account_file(
         'keys/key_docai.json')
     client = bigquery.Client(credentials=credentials)
-    dataset_ref = client.dataset(dataset_name)
 
     uploaded_pdfs = [pdf.split('.')[0] for pdf in os.listdir(os.path.join(os.getcwd(), 'pdfs'))]
 
