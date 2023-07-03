@@ -62,7 +62,7 @@ def download():
 
     #Query the recibos table
     query = f"""
-        SELECT DISTINCT(*) FROM {dataset_name}.{table_name}
+        SELECT DISTINCT * FROM {dataset_name}.{table_name}
         WHERE recibos.recibo IN {tuple(uploaded_pdfs)}
     """
     query_job = client.query(query)
