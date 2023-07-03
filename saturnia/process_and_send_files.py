@@ -11,8 +11,9 @@ def save_data_to_bigquery(df):
     project_id = "saturnia-recibos"
     dataset_name = "saturnia_app"
     table_name = "recibos"
-    credentials = google.oauth2.service_account.Credentials.from_service_account_file(
-        'keys/key_db.json')
+
+    keys_path = os.path.join(os.getcwd(), 'keys/key_docai.json')
+    credentials = google.oauth2.service_account.Credentials.from_service_account_file(keys_path)
     client = bigquery.Client(credentials=credentials)
     dataset_ref = client.dataset(dataset_name)
     table_ref = dataset_ref.table(table_name)
