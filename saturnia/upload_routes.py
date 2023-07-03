@@ -19,9 +19,7 @@ def home():
 @bp.route('/upload', methods=['POST'])
 def upload():
     # Delete the contents of the 'pdfs' directory
-    shutil.rmtree('pdfs')
-    os.mkdir('pdfs')
-
+    
     if 'file' not in request.files:
         return 'No file part in the request', 400
 
@@ -33,6 +31,7 @@ def upload():
         filename = secure_filename(file.filename)
         file_path = os.path.join('pdfs', filename)
         file.save(file_path)
+
 
         df = process_and_send_files([file_path])
 

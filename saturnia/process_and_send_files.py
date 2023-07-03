@@ -3,14 +3,17 @@ from process_document import process_document
 import pandas as pd
 
 from google.cloud import bigquery
+import google 
+
 
 
 def save_data_to_bigquery(df):
     project_id = "saturnia-recibos"
     dataset_name = "saturnia_app"
     table_name = "recibos"
-
-    client = bigquery.Client(project=project_id)
+    credentials = google.oauth2.service_account.Credentials.from_service_account_file(
+        'keys/key_docai.json')
+    client = bigquery.Client(credentials=credentials)
     dataset_ref = client.dataset(dataset_name)
     table_ref = dataset_ref.table(table_name)
 

@@ -1,7 +1,7 @@
 import os
 import json 
 from google.cloud import documentai_v1beta3 as documentai
-
+import google
 
 def process_document(file_path: str):
 
@@ -9,8 +9,13 @@ def process_document(file_path: str):
     mime_type = 'application/pdf'
     project_id, location, processor_id, key_name = keys['project_id'], keys['location'], keys['processor_id'], keys['key_name']
     
-    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = f"{os.getcwd()}/keys/{key_name}"
-    client = documentai.DocumentProcessorServiceClient()
+    # os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = f"{os.getcwd()}/keys/{key_name}"
+    # Instantiate DocumentProcessorService client with auth credentials.)
+    #Create credentials
+    credentials = google.oauth2.service_account.Credentials.from_service_account_file(
+        'keys/key_docai.json')
+    #Create client
+    client = documentai.DocumentProcessorServiceClient(credentials=credentials)
 
     name = f"projects/{project_id}/locations/{location}/processors/{processor_id}"
 
@@ -22,7 +27,6 @@ def process_document(file_path: str):
     request = {"name": name, "document": document}
 
     result = client.process_document(request=request)
-
     document = result.document
     print("Document processing complete.")
     
@@ -31,13 +35,13 @@ def process_document(file_path: str):
     for entity in document.entities:
         field_name = entity.type_ 
 
-        if field_name == 'line_item':
-            field_name += f"_{i}"
-            i += 1
+        if field_name != 'line_item':
+            # field_name += f"_{i}"
+            # i += 1
 
-        field_value = entity.mention_text
-        predicted_fields[field_name] = field_value
-
+            field_value = entity.mention_text
+            predicted_fields[field_name] = field_value
+    print(predicted_fields)
     return predicted_fields
 
 
