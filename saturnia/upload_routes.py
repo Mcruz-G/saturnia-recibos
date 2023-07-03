@@ -61,6 +61,7 @@ def upload():
 @bp.route('/download', methods=['GET'])
 def download():
     uploaded_pdfs = get_processed_identifiers()
+    print(uploaded_pdfs)
     project_id = 'saturnia-recibos'
     dataset_id = 'saturnia_app'
     table = 'recibos'
