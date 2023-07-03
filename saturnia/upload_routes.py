@@ -71,10 +71,11 @@ def download():
 
 
     query = f"""
-    SELECT * FROM {project_id}.{dataset_id}.{table}
-    WHERE user_id = {user_id}
-    """
+            SELECT * FROM {project_id}.{dataset_id}.{table}
+            WHERE user_id = {user_id}
+            """
 
+    print(query)
     credentials = google.oauth2.service_account.Credentials.from_service_account_file(
         os.path.join(os.getcwd(), 'keys/key_docai.json'))
     
