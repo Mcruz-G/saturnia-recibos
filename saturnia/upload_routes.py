@@ -63,17 +63,19 @@ def download():
         'keys/key_docai.json')
     client = bigquery.Client(credentials=credentials)
 
-    uploaded_files = os.listdir(os.path.join(os.getcwd(), 'pdfs'))
-    uploaded_files = [pdf for pdf in uploaded_files if pdf.endswith('.pdf')]
+    pdf_files = os.listdir(os.path.join(os.getcwd(), 'pdfs'))
+    uploaded_pdfs = [pdf.split('.')[0] for pdf in pdf_files if pdf.endswith('.pdf')]
 
-    uploaded_pdfs = [pdf.split('.')[0] for pdf in uploaded_files]
-    print(uploaded_pdfs)
+    if len(uploaded_pdfs) == 1:
+        uploaded_pdfs = uploaded_pdfs[0]
     #Query the recibos table
     query = f"""
         SELECT * FROM {dataset_name}.{table_name}
-        WHERE recibos.recibo IN {tuple(uploaded_pdfs)}
+        WHERE recibos.recibo IN UNNEST(@uploaded_pdfs)
     """
-    query_job = client.query(query)
+    job_config = bigquery.QueryJobConfig()
+    job_config.query_parameters = [bigquery.ArrayQueryParameter("uploaded_pdfs", "STRING", uploaded_pdfs)]
+    query_job = client.query(query, job_config=job_config)
     df = query_job.to_dataframe()
     
     # Query the 'recibos' table 
