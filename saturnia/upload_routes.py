@@ -32,21 +32,21 @@ def upload():
         file_path = os.path.join('pdfs', filename)
         # Add current path to file_path
         file_path = os.path.join(os.getcwd(), file_path)
+        print(file_path)
         file.save(file_path)
 
-        dir_path = os.path.dirname(file_path)
-        df = process_and_send_files(dir_path)
+    dir_path = os.path.dirname(file_path)
+    df = process_and_send_files(dir_path)
 
-        save_data_to_db(df)
+    save_data_to_db(df)
 
-        csv_data = df.to_csv(index=True, index_label='recibo').encode()
-        
-        session['csv_data'] = csv_data  # Store the CSV data in the session
-        session.modified = True  # This line is added to inform Flask that the session object has been modified
+    csv_data = df.to_csv(index=True, index_label='recibo').encode()
+    
+    session['csv_data'] = csv_data  # Store the CSV data in the session
+    session.modified = True  # This line is added to inform Flask that the session object has been modified
 
-        return 'Upload complete', 200
+    return 'Upload complete', 200
 
-    return 'Upload failed', 400
 
 @bp.route('/download', methods=['GET'])
 def download():
