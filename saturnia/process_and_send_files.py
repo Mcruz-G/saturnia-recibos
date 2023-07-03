@@ -34,7 +34,7 @@ def process_and_send_files(dir):
     #     file_paths = [file_paths]
         
     # for file_paths in dir
-    for file_path in os.listdir(dir):
+    for file_path in list(set(os.listdir(dir))):
         if file_path.endswith('.pdf'):
             #build absolute file_path 
             name = os.path.basename(file_path).split(".")[0]
