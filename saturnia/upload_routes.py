@@ -30,7 +30,9 @@ def home():
 
 @bp.route('/upload', methods=['POST'])
 def upload():
-    user_id = request.remote_addr + request.user_agent.string
+    # Get IP, User Agent and timestamp
+    user_id = request.remote_addr + request.user_agent.string + request.args.get('timestamp', '')
+
     
     if 'file' not in request.files:
         return 'No file part in the request', 400
