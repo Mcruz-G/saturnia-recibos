@@ -60,7 +60,7 @@ def download():
     uploaded_files = os.listdir(os.path.join(os.getcwd(), 'pdfs'))
 
     uploaded_pdfs = [pdf.split('.')[0] for pdf in uploaded_files]
-
+    print(uploaded_pdfs)
     #Query the recibos table
     query = f"""
         SELECT * FROM {dataset_name}.{table_name}

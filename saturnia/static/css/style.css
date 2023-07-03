@@ -34,6 +34,7 @@ body {
 .fade-in-text {
     animation: fadeInOpacity 2s ease-in forwards;
     color : white;
+    font-size: 75px;
 
     opacity: 0;
 }
