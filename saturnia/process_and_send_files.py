@@ -35,9 +35,10 @@ def process_and_send_files(dir):
         
     # for file_paths in dir
     for file_path in os.listdir(dir):
-        print(file_path)
         if file_path.endswith('.pdf'):
+            #build absolute file_path 
             name = os.path.basename(file_path).split(".")[0]
+            file_path = os.path.join(dir, file_path)
             result = process_document(file_path)
             fields[name] = result
 

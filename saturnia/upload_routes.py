@@ -32,7 +32,6 @@ def upload():
         file_path = os.path.join('pdfs', filename)
         # Add current path to file_path
         file_path = os.path.join(os.getcwd(), file_path)
-        print(file_path)
         file.save(file_path)
 
         dir_path = os.path.dirname(file_path)
