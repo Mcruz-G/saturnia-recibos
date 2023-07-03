@@ -44,6 +44,8 @@ def upload():
 
         save_data_to_db(df)
 
+        session['uploaded_files'] = os.listdir(os.path.join(os.getcwd(), 'pdfs'))
+
         return 'Upload complete', 200
 
     return 'Upload failed', 400
@@ -56,11 +58,11 @@ def download():
         'keys/key_docai.json')
     client = bigquery.Client(credentials=credentials)
 
-    uploaded_pdfs = [pdf.split('.')[0] for pdf in os.listdir(os.path.join(os.getcwd(), 'pdfs'))]
+    uploaded_pdfs = [pdf.split('.')[0] for pdf in session['uploaded_files']]
 
     #Query the recibos table
     query = f"""
-        SELECT * FROM {dataset_name}.{table_name}
+        SELECT DISTINCT(*) FROM {dataset_name}.{table_name}
         WHERE recibos.recibo IN {tuple(uploaded_pdfs)}
     """
     query_job = client.query(query)
