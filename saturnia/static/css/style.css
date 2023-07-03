@@ -25,8 +25,8 @@ body {
 
 .logo {
     position: absolute;
-    top: 20px;
-    left: 20px;
+    top: 60px;
+    left: 60px;
     width: 100px;
     height: 100px;
 }
@@ -34,7 +34,8 @@ body {
 .fade-in-text {
     animation: fadeInOpacity 2s ease-in forwards;
     color : white;
-
+    width: 150px;
+    height: 150px;
     opacity: 0;
 }
 
