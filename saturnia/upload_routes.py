@@ -38,12 +38,15 @@ def upload():
         # print(file_path)
         file.save(file_path)
 
-        global uploaded_pdfs
-        
-        uploaded_pdfs.append(filename.split('.')[0])
 
 
         df = process_and_send_files(file_path)
+        filenames = df.index.tolist()  # Replace 'filename_column' with the actual filename column name in your DataFrame
+        
+        global uploaded_pdfs
+        
+        uploaded_pdfs.extend(filenames)
+
 
         save_data_to_db(df)
 
@@ -59,6 +62,8 @@ def download():
     table = 'recibos'
 
     global uploaded_pdfs
+
+    print(uploaded_pdfs)
 
     if len(uploaded_pdfs) == 1:
         query = f"""
