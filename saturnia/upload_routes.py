@@ -30,7 +30,7 @@ def home():
 
 @bp.route('/upload', methods=['POST'])
 def upload():
-    # Delete the contents of the 'pdfs' directory
+    user_id = request.remote_addr + request.user_agent.string
     
     if 'file' not in request.files:
         return 'No file part in the request', 400
@@ -51,8 +51,10 @@ def upload():
 
         df = process_and_send_files(file_path)
 
-        save_data_to_db(df)
+        save_data_to_db(df, user_id)
 
+        # Delete .pdf part of the filename
+        filename = filename[:-4]
         save_identifier(filename)
         return 'Upload complete', 200
 
@@ -60,22 +62,18 @@ def upload():
 
 @bp.route('/download', methods=['GET'])
 def download():
-    uploaded_pdfs = get_processed_identifiers()
-    print(uploaded_pdfs)
+    # Get IP and User Agent
+    user_id = request.remote_addr + request.user_agent.string
+
     project_id = 'saturnia-recibos'
     dataset_id = 'saturnia_app'
     table = 'recibos'
 
-    if len(uploaded_pdfs) == 1:
-        query = f"""
-        SELECT * FROM {project_id}.{dataset_id}.{table}
-        WHERE recibo = '{uploaded_pdfs[0]}'
-        """
-    else: 
-        query = f"""
-        SELECT * FROM {project_id}.{dataset_id}.{table}
-        WHERE recibo IN {tuple(uploaded_pdfs)}
-        """
+
+    query = f"""
+    SELECT * FROM {project_id}.{dataset_id}.{table}
+    WHERE user_id = {user_id}
+    """
 
     credentials = google.oauth2.service_account.Credentials.from_service_account_file(
         os.path.join(os.getcwd(), 'keys/key_docai.json'))
