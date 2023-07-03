@@ -11,8 +11,17 @@ import google
 from google.cloud import bigquery
 
 
+
+def save_identifier(identifier):
+    with open('processed_files_identifiers.txt', 'a') as f:
+        f.write(identifier + '\n')
+
+def get_processed_identifiers():
+    with open('processed_files_identifiers.txt', 'r') as f:
+        identifiers = f.read().splitlines()
+    return identifiers
+
 # engine = create_engine('sqlite:///databases/CFE_Recibos_DB.sqlite')
-uploaded_pdfs = []  # Global list to store all uploaded PDFs
 bp = Blueprint('saturnia', __name__, url_prefix='/saturnia')
 
 @bp.route('/', methods=['GET'])
@@ -41,29 +50,20 @@ def upload():
 
 
         df = process_and_send_files(file_path)
-        filenames = df.index.tolist()  # Replace 'filename_column' with the actual filename column name in your DataFrame
-        
-        global uploaded_pdfs
-        
-        uploaded_pdfs.extend(filenames)
-
 
         save_data_to_db(df)
 
+        save_identifier(filename)
         return 'Upload complete', 200
 
     return 'Upload failed', 400
 
 @bp.route('/download', methods=['GET'])
 def download():
-    
+    uploaded_pdfs = get_processed_identifiers()
     project_id = 'saturnia-recibos'
     dataset_id = 'saturnia_app'
     table = 'recibos'
-
-    global uploaded_pdfs
-
-    print(uploaded_pdfs)
 
     if len(uploaded_pdfs) == 1:
         query = f"""
