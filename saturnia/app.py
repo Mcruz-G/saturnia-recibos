@@ -10,8 +10,11 @@ app.register_blueprint(upload)
 
 @app.route('/')
 def home():
-    shutil.rmtree('pdfs')
-    os.mkdir('pdfs')
+    #Get absolute path to pdfs
+    pdfs_path = os.path.join(os.getcwd(), 'pdfs')
+    if os.path.exists(pdfs_path):
+        shutil.rmtree('pdfs')
+        os.mkdir('pdfs')
 
     return render_template('index.html')
 
