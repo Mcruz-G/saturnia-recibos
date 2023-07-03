@@ -72,7 +72,7 @@ def download():
         """
 
     credentials = google.oauth2.service_account.Credentials.from_service_account_file(
-        os.path.join(os.getcwd(), 'saturnia', 'keys/key_docai.json'))
+        os.path.join(os.getcwd(), 'keys/key_docai.json'))
     
     client = bigquery.Client(credentials=credentials)
     df = client.query(query).to_dataframe()
