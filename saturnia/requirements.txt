@@ -1,7 +1,7 @@
 Flask==2.3.2
 flask-session==0.5.0
-# pandas==2.0
-# protobuf==4.23.3
+pandas==2.0
+protobuf==4.23.3
 SQLAlchemy==2.0.16
 Werkzeug==2.3.6
 google==3.0.0
