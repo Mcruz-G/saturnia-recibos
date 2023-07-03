@@ -15,10 +15,9 @@ from google.cloud import bigquery
 
 bp = Blueprint('saturnia', __name__, url_prefix='/saturnia')
 
-@bp.route('/', methods=['GET'])
-def home():
-    session['output_data'] = pd.DataFrame()
-    return render_template('index.html')
+# @bp.route('/', methods=['GET'])
+# def home():
+#     return render_template('index.html')
 
 @bp.route('/upload', methods=['POST'])
 def upload():
