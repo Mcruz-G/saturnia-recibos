@@ -7,6 +7,9 @@ import os
 import time
 from werkzeug.utils import secure_filename
 import shutil
+import google 
+from google.cloud import bigquery
+
 
 # engine = create_engine('sqlite:///databases/CFE_Recibos_DB.sqlite')
 
@@ -14,6 +17,7 @@ bp = Blueprint('saturnia', __name__, url_prefix='/saturnia')
 
 @bp.route('/', methods=['GET'])
 def home():
+    session['output_data'] = pd.DataFrame()
     return render_template('index.html')
 
 @bp.route('/upload', methods=['POST'])
@@ -35,31 +39,35 @@ def upload():
         # print(file_path)
         file.save(file_path)
 
-    # dir_path = os.path.dirname(file_path)
-    # df = process_and_send_files(dir_path)
 
-    # save_data_to_db(df)
+        df = process_and_send_files(file_path)
 
-    # csv_data = df.to_csv(index=True, index_label='recibo').encode()
-    
-    # session['csv_data'] = csv_data  # Store the CSV data in the session
-    # session.modified = True  # This line is added to inform Flask that the session object has been modified
+        save_data_to_db(df)
 
-    return 'Upload complete', 200
-
+    return 'Upload failed', 400
 
 @bp.route('/download', methods=['GET'])
 def download():
-    dir_path = os.path.join(os.getcwd(), 'pdfs')
-    df = process_and_send_files(dir_path)
+    dataset_name = "saturnia_app"
+    table_name = "recibos"
+    credentials = google.oauth2.service_account.Credentials.from_service_account_file(
+        'keys/key_docai.json')
+    client = bigquery.Client(credentials=credentials)
+    dataset_ref = client.dataset(dataset_name)
 
-    save_data_to_db(df)
+    uploaded_pdfs = [pdf.split('.')[0] for pdf in os.listdir(os.path.join(os.getcwd(), 'pdfs'))]
 
-    csv_data = df.to_csv(index=True, index_label='recibo').encode()
+    #Query the recibos table
+    query = f"""
+        SELECT * FROM {dataset_name}.{table_name}
+        WHERE recibos.recibo IN {tuple(uploaded_pdfs)}
+    """
+    query_job = client.query(query)
+    df = query_job.to_dataframe()
     
-    session['csv_data'] = csv_data  # Store the CSV data in the session
-    session.modified = True  # This line is added to inform Flask that the session object has been modified
-    csv_data = session.get('csv_data')  # Retrieve the CSV data from the session
+    # Query the 'recibos' table 
+    csv_data = df.to_csv(index=True, index_label='recibo').encode()
+    # csv_data = session.get('csv_data')  # Retrieve the CSV data from the session
     if csv_data:
         response = make_response(csv_data)
         response.headers['Content-Type'] = 'text/csv'

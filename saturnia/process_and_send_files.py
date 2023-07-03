@@ -28,21 +28,14 @@ def save_data_to_bigquery(df):
     print(f"Data saved to BigQuery table: {project_id}.{dataset_name}.{table_name}")
 
 
-def process_and_send_files(dir):
+def process_and_send_files(file_path):
     fields = {}
-    # if isinstance(file_paths, str):
-    #     file_paths = [file_paths]
-        
-    # for file_paths in dir
-    print(dir)
-    # print(list(set(os.listdir(dir))))
-    for file_path in list(set(os.listdir(dir))):
-        if file_path.endswith('.pdf'):
-            #build absolute file_path 
-            name = os.path.basename(file_path).split(".")[0]
-            file_path = os.path.join(dir, file_path)
-            result = process_document(file_path)
-            fields[name] = result
+    if file_path.endswith('.pdf'):
+        #build absolute file_path 
+        name = os.path.basename(file_path).split(".")[0]
+        result = process_document(file_path)
+        fields[name] = result
 
-    df = pd.DataFrame.from_dict(fields, orient='index')
+    df = pd.DataFrame.from_dict(fields, orient='index',)
+    df.index.name = 'recibo'
     return df

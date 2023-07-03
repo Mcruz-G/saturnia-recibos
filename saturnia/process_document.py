@@ -41,7 +41,6 @@ def process_document(file_path: str):
 
             field_value = entity.mention_text
             predicted_fields[field_name] = field_value
-    print(predicted_fields)
     return predicted_fields
 
 
