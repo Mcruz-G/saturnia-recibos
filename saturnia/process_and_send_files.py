@@ -28,12 +28,13 @@ def save_data_to_bigquery(df):
     print(f"Data saved to BigQuery table: {project_id}.{dataset_name}.{table_name}")
 
 
-def process_and_send_files(file_paths):
+def process_and_send_files(dir):
     fields = {}
     if isinstance(file_paths, str):
         file_paths = [file_paths]
         
-    for file_path in file_paths:
+    # for file_paths in dir
+    for file_path in os.listdir(dir):
         if file_path.endswith('.pdf'):
             name = os.path.basename(file_path).split(".")[0]
             result = process_document(file_path)

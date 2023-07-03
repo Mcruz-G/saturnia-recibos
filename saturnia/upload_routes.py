@@ -35,8 +35,8 @@ def upload():
         print(file_path)
         file.save(file_path)
 
-
-        df = process_and_send_files([file_path])
+        dir_path = os.path.dirname(file_path)
+        df = process_and_send_files(dir_path)
 
         save_data_to_db(df)
 
