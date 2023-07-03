@@ -1,1 +1,6 @@
-recibo,recibo,due_date,invoice_date,total_amount,invoice_id,supplier_registration,supplier_name,invoice_type,supplier_address
+,due_date,invoice_date,invoice_id,invoice_type,supplier_address,supplier_name,supplier_registration,total_amount,recibo
+hacienda_DIC22,13 ENE 23,30 NOV 22 - 31 DIC 22,046180152776,,"FRACCION B DE LA FRACC 2
+CARRETERA 45
+SAN JOSE DE MARANON
+IRAPUATO, GTO
+C.P. 36826",ULTRACONGELADOS LA HACIENDA,GDMTH,"1,822,104",hacienda_DIC22.pdf

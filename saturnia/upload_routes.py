@@ -38,15 +38,14 @@ def upload():
         # print(file_path)
         file.save(file_path)
 
+        global uploaded_pdfs
+        
+        uploaded_pdfs.append(filename.split('.')[0])
+
 
         df = process_and_send_files(file_path)
 
         save_data_to_db(df)
-
-        uploaded_pdfs.append(filename.split('.')[0])  # Append uploaded PDF to the global list
-        print(uploaded_pdfs)
-        session['uploaded_pdfs'] = uploaded_pdfs.copy()  # Store a copy of the list in the session
-        session.modified = True
 
         return 'Upload complete', 200
 
@@ -54,31 +53,31 @@ def upload():
 
 @bp.route('/download', methods=['GET'])
 def download():
-    dataset_name = "saturnia_app"
-    table_name = "recibos"
-    credentials = google.oauth2.service_account.Credentials.from_service_account_file(
-        'keys/key_docai.json')
-    client = bigquery.Client(credentials=credentials)
-
-    global uploaded_pdfs  # Access the global list
-
-    if not uploaded_pdfs:
-        return 'No uploaded PDFs found', 400
-
-    # Query the 'recibos' table 
-    print(uploaded_pdfs)
-    query = f"""
-        SELECT DISTINCT * FROM `{dataset_name}.{table_name}`
-        WHERE recibo IN UNNEST(@uploaded_pdfs)
-    """
-    job_config = bigquery.QueryJobConfig()
-    job_config.query_parameters = [bigquery.ArrayQueryParameter("uploaded_pdfs", "STRING", uploaded_pdfs)]
-    query_job = client.query(query, job_config=job_config)
-    df = query_job.to_dataframe()
     
-    # Query the 'recibos' table 
-    csv_data = df.to_csv(index=True, index_label='recibo').encode()
-    # csv_data = session.get('csv_data')  # Retrieve the CSV data from the session
+    project_id = 'saturnia-recibos'
+    dataset_id = 'saturnia_app'
+    table = 'recibos'
+
+    global uploaded_pdfs
+
+    if len(uploaded_pdfs) == 1:
+        query = f"""
+        SELECT * FROM {project_id}.{dataset_id}.{table}
+        WHERE recibo = '{uploaded_pdfs[0]}'
+        """
+    else: 
+        query = f"""
+        SELECT * FROM {project_id}.{dataset_id}.{table}
+        WHERE recibo IN {tuple(uploaded_pdfs)}
+        """
+
+    credentials = google.oauth2.service_account.Credentials.from_service_account_file(
+        os.path.join(os.getcwd(), 'saturnia', 'keys/key_docai.json'))
+    
+    client = bigquery.Client(credentials=credentials)
+    df = client.query(query).to_dataframe()
+
+    csv_data = df.to_csv(index=True).encode()
     if csv_data:
         response = make_response(csv_data)
         response.headers['Content-Type'] = 'text/csv'
