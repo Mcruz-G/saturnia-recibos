@@ -27,16 +27,16 @@ body {
     position: absolute;
     top: 20px;
     left: 20px;
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
 }
 
 .fade-in-text {
     animation: fadeInOpacity 2s ease-in forwards;
     color : white;
-    font-size: 75px;
+    font-size: 125px;
 
-    opacity: 0;
+    opacity: 10;
 }
 
 .instructions {
@@ -51,8 +51,8 @@ body {
 
 .centered-button {
     margin-top: 20px;
-    padding: 10px 10px;
-    font-size: 20px;
+    padding: 30px 30px;
+    font-size: 30px;
     color: white;
     background-color: #4CAF50;
     border: none;
