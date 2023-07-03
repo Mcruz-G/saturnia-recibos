@@ -30,8 +30,8 @@ def save_data_to_bigquery(df):
 
 def process_and_send_files(dir):
     fields = {}
-    if isinstance(file_paths, str):
-        file_paths = [file_paths]
+    # if isinstance(file_paths, str):
+    #     file_paths = [file_paths]
         
     # for file_paths in dir
     for file_path in os.listdir(dir):
