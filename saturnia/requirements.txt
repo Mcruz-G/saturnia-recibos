@@ -1,3 +1,4 @@
+db-dtypes==1.1.1
 Flask==2.3.2
 flask-session==0.5.0
 pandas==2.0
