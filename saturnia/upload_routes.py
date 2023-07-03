@@ -12,19 +12,12 @@ from google.cloud import bigquery
 
 
 # engine = create_engine('sqlite:///databases/CFE_Recibos_DB.sqlite')
-
+uploaded_pdfs = []  # Global list to store all uploaded PDFs
 bp = Blueprint('saturnia', __name__, url_prefix='/saturnia')
 
 @bp.route('/', methods=['GET'])
 def home():
-    #Get absolute path to pdfs
-    pdfs_path = os.path.join(os.getcwd(), 'pdfs')
-    if os.path.exists(pdfs_path):
-        shutil.rmtree(pdfs_path)
-        os.mkdir(pdfs_path)
-
     return render_template('index.html')
-
 
 @bp.route('/upload', methods=['POST'])
 def upload():
@@ -50,6 +43,10 @@ def upload():
 
         save_data_to_db(df)
 
+        uploaded_pdfs.append(filename.split('.')[0])  # Append uploaded PDF to the global list
+        print(uploaded_pdfs)
+        session['uploaded_pdfs'] = uploaded_pdfs.copy()  # Store a copy of the list in the session
+        session.modified = True
 
         return 'Upload complete', 200
 
@@ -63,15 +60,16 @@ def download():
         'keys/key_docai.json')
     client = bigquery.Client(credentials=credentials)
 
-    pdf_files = os.listdir(os.path.join(os.getcwd(), 'pdfs'))
-    uploaded_pdfs = [pdf.split('.')[0] for pdf in pdf_files if pdf.endswith('.pdf')]
+    global uploaded_pdfs  # Access the global list
 
-    if len(uploaded_pdfs) == 1:
-        uploaded_pdfs = uploaded_pdfs[0]
-    #Query the recibos table
+    if not uploaded_pdfs:
+        return 'No uploaded PDFs found', 400
+
+    # Query the 'recibos' table 
+    print(uploaded_pdfs)
     query = f"""
-        SELECT * FROM {dataset_name}.{table_name}
-        WHERE recibos.recibo IN UNNEST(@uploaded_pdfs)
+        SELECT DISTINCT * FROM `{dataset_name}.{table_name}`
+        WHERE recibo IN UNNEST(@uploaded_pdfs)
     """
     job_config = bigquery.QueryJobConfig()
     job_config.query_parameters = [bigquery.ArrayQueryParameter("uploaded_pdfs", "STRING", uploaded_pdfs)]
