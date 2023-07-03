@@ -72,7 +72,7 @@ def download():
 
     query = f"""
             SELECT * FROM {project_id}.{dataset_id}.{table}
-            WHERE user_id = {user_id}
+            WHERE user_id = '{user_id}'
             """
 
     print(query)
