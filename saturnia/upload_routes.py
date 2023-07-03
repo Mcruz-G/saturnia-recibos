@@ -65,7 +65,7 @@ def upload():
 @bp.route('/download', methods=['GET'])
 def download():
     # Get IP and User Agent
-    user_id = request.remote_addr + request.user_agent.string
+    user_id = request.remote_addr + request.user_agent.string + request.args.get('timestamp', '')
 
     project_id = 'saturnia-recibos'
     dataset_id = 'saturnia_app'
